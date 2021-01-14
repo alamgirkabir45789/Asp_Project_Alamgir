@@ -1,0 +1,346 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace CrudByEntityFramework
+{
+    public partial class Default : System.Web.UI.Page
+    {
+        TraineeInfoEntities ctx;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public void DataLoad()
+        {
+            if (Page.IsPostBack)
+            {
+                dgViewTrainee.DataBind();
+            }
+        }
+        public void ClearData()
+        {
+            txtName.Text = "";
+            txtEmail.Text = "";
+            txtPassword.Text = "";
+            txtDOB.Text = DateTime.Today.Date.ToString();
+            ddlGender.Text = ddlGender.Items[0].Text;
+
+        }
+
+
+        protected void dgViewTrainee_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblTID.Text = dgViewTrainee.SelectedRow.Cells[1].Text;
+            txtName.Text = dgViewTrainee.SelectedRow.Cells[2].Text;
+            txtEmail.Text = dgViewTrainee.SelectedRow.Cells[3].Text;
+            ddlGender.Text = dgViewTrainee.SelectedRow.Cells[4].Text;
+            txtDOB.Text = dgViewTrainee.SelectedRow.Cells[5].Text;
+            txtPassword.Text = dgViewTrainee.SelectedRow.Cells[6].Text;
+
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            using(ctx=new TraineeInfoEntities())
+            {
+                Trainee trainee = new Trainee();
+                trainee.Name = txtName.Text;
+                trainee.Email = txtEmail.Text;
+                trainee.Gender = ddlGender.SelectedValue;
+                trainee.DOB = Convert.ToDateTime(txtDOB.Text);
+                trainee.Password = txtPassword.Text;
+                ctx.Trainees.Add(trainee);
+                ctx.SaveChanges();
+                DataLoad();
+                ClearData();
+            }           
+        }
+
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            int traineeid = Convert.ToInt32(lblTID.Text);
+
+            using(ctx=new TraineeInfoEntities())
+            {
+                Trainee trainee = ctx.Trainees.First(x => x.TraineeID == traineeid);
+                trainee.Name = txtName.Text;
+                trainee.Email = txtEmail.Text;
+                trainee.Gender = ddlGender.SelectedValue;
+                trainee.DOB = Convert.ToDateTime(txtDOB.Text);
+                trainee.Password = txtPassword.Text;
+                ctx.SaveChanges();
+                DataLoad();
+                ClearData();
+
+            }
+            
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            int traineeid = Convert.ToInt32(lblTID.Text);
+            using(ctx=new TraineeInfoEntities())
+            {
+                Trainee trainee = ctx.Trainees.First(x => x.TraineeID == traineeid);
+                ctx.Trainees.Remove(trainee);
+                ctx.SaveChanges();
+                DataLoad();
+                ClearData();
+
+            }
+            
+        }
+    }
+}
+
+=====================================*******************=================================
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace CrudeInEntityFrameword
+{
+    public partial class EmployeeInformation : System.Web.UI.Page
+    {
+        EmployeeManagementEntities employeeEntities = new EmployeeManagementEntities();
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ClearData()
+        {
+            txtName.Text = "";
+            txtEmail.Text = "";
+            ddlDesignation.Text = ddlDesignation.Items[0].Text;
+            txtContactNo.Text = "";
+        }
+
+        private void DataLoad()
+        {
+            if (Page.IsPostBack)
+            {
+                dgViewEmployee.DataBind();
+            }
+        }
+
+        protected void dgViewEmployee_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            lblEID.Text = dgViewEmployee.SelectedRow.Cells[1].Text;
+            txtName.Text = dgViewEmployee.SelectedRow.Cells[2].Text;
+            txtEmail.Text = dgViewEmployee.SelectedRow.Cells[4].Text;
+            ddlDesignation.Text = dgViewEmployee.SelectedRow.Cells[3].Text;
+            txtContactNo.Text = dgViewEmployee.SelectedRow.Cells[5].Text;
+
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            //string name = (FindControl("txtName") as TextBox).Text;
+            //string designation = (FindControl("ddlDesignation") as DropDownList).Text;
+            //string email = (FindControl("txtEmail") as TextBox).Text;
+            //string contactno = (FindControl("txtContactNo") as TextBox).Text;
+
+
+            using (employeeEntities = new EmployeeManagementEntities())
+            {
+
+                Employee employee = new Employee
+                {
+                    Name = txtName.Text,
+                    Designation = ddlDesignation.Text,
+                    Email = txtEmail.Text,
+                    ContactNo = txtContactNo.Text
+
+                };
+
+                employeeEntities.Employees.Add(employee);
+                employeeEntities.SaveChanges();
+
+                //employee.Name = txtName.Text;
+                //employee.Designation = ddlDesignation.SelectedValue.ToString();
+                //employee.ContactNo = txtContactNo.Text;
+
+                //employeeEntities.Employees.Add(employee);
+                //employeeEntities.SaveChanges();
+            }
+            ClearData();
+            DataLoad();
+
+
+        }
+
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            int employeeid = Convert.ToInt32(lblEID.Text);
+
+            string name = (FindControl("txtName") as TextBox).Text;
+            string designation = (FindControl("ddlDesignation") as DropDownList).Text;
+            string email = (FindControl("txtEmail") as TextBox).Text;
+            string contactno = (FindControl("txtContactNo") as TextBox).Text;
+
+
+            using (employeeEntities = new EmployeeManagementEntities())
+            {
+                Employee employee = (from x in employeeEntities.Employees
+                                     where x.EmployeeID == employeeid
+                                     select x).FirstOrDefault();
+
+                employee.Name = name;
+                employee.Designation = designation;
+                employee.Email = email;
+                employee.ContactNo = contactno;
+
+                employeeEntities.SaveChanges();
+            }
+            ClearData();
+            DataLoad();
+
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            int employeeid = Convert.ToInt32(lblEID.Text);
+            using(employeeEntities = new EmployeeManagementEntities())
+            {
+                Employee employee = (from x in employeeEntities.Employees
+                                     where x.EmployeeID == employeeid
+                                     select x).FirstOrDefault();
+
+                employeeEntities.Employees.Remove(employee);
+                employeeEntities.SaveChanges();
+            }
+            ClearData();
+            DataLoad();
+        }
+    }
+}
+
+========================================******************=======================================================
+Linq Operation
+========================================***************=======================================================
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace PracticeLinQ
+{
+    public partial class TraineeInfo : System.Web.UI.Page
+    {
+        TraineesDataContext ctx;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void ClearData()
+        {
+            txtName.Text = "";
+            txtEmail.Text = "";
+            ddlGender.Text = ddlGender.Items[0].Text;
+            txtDOB.Text = DateTime.Today.Date.ToString();
+            txtPassword.Text = "";
+            txtConfirmPass.Text = "";
+        }
+
+        private void DataLoad()
+        {
+            if (Page.IsPostBack)
+            {
+                dgViewTrainees.DataBind();
+            }
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            using(ctx=new TraineesDataContext())
+            {
+                Trainee trainee = new Trainee
+                {
+                    Name = txtName.Text,
+                    Email = txtEmail.Text,
+                    Gender = ddlGender.SelectedValue,
+                    DOB = Convert.ToDateTime(txtDOB.Text),
+                    Password=txtPassword.Text
+                };
+                ctx.Trainees.InsertOnSubmit(trainee);
+                ctx.SubmitChanges();
+            }
+            DataLoad();
+            ClearData();
+        }
+
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            int traineeid = Convert.ToInt32(lblTid.Text);
+            string name = (FindControl("txtName") as TextBox).Text;
+            string email = (FindControl("txtEmail") as TextBox).Text;
+            string gender = (FindControl("ddlGender") as DropDownList).Text;
+            string dob = (FindControl("txtDOB") as TextBox).Text;
+            string password = (FindControl("txtPassword") as TextBox).Text;
+
+            using(ctx=new TraineesDataContext())
+            {
+                Trainee trainee = (from x in ctx.Trainees
+                                   where x.TraineeID == traineeid
+                                   select x).FirstOrDefault();
+                trainee.Name = name;
+                trainee.Email = email;
+                trainee.Gender = gender;
+                trainee.DOB = Convert.ToDateTime(dob);
+                trainee.Password = password;
+
+                ctx.SubmitChanges();
+            }
+            DataLoad();
+            ClearData();
+
+
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            int traineeid = Convert.ToInt32(lblTid.Text);
+            using(ctx=new TraineesDataContext())
+            {
+                Trainee trainee = (from x in ctx.Trainees
+                                   where x.TraineeID == traineeid
+                                   select x).FirstOrDefault();
+                ctx.Trainees.DeleteOnSubmit(trainee);
+                ctx.SubmitChanges();
+            }
+
+            DataLoad();
+            ClearData();
+
+        }
+
+        protected void dgViewTrainees_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblTid.Text = dgViewTrainees.SelectedRow.Cells[1].Text;
+            txtName.Text = dgViewTrainees.SelectedRow.Cells[2].Text;
+            txtEmail.Text = dgViewTrainees.SelectedRow.Cells[3].Text;
+            ddlGender.Text = dgViewTrainees.SelectedRow.Cells[4].Text;
+            txtDOB.Text = dgViewTrainees.SelectedRow.Cells[5].Text;
+            txtPassword.Text = dgViewTrainees.SelectedRow.Cells[6].Text;
+
+        }
+    }
+}
+========================================******************=======================================================
+Linq Operation
+========================================***************=======================================================

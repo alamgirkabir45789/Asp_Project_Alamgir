@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="PatientReg">
+  <DataContextMoniker Name="/PatientRegDataContext" />
+  <nestedChildShapes>
+    <classShape Id="4feeebe8-0808-4812-9364-8cd6285c48e1" absoluteBounds="3.625, 1.375, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/PatientRegDataContext/Patient" />
+      <nestedChildShapes>
+        <elementListCompartment Id="50fb11b4-7949-436d-ad2c-ecee481c3f72" absoluteBounds="3.64, 1.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="21869449-38ae-4fab-945d-17f76e3440f4" absoluteBounds="1.125, 1.75, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/PatientRegDataContext/Department" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ffb35c70-8ee2-4392-bcd6-6b509f215018" absoluteBounds="1.1400000000000001, 2.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.125 : 2.34699625651042); (3.625 : 2.34699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PatientRegDataContext/Department/Department_Patient" />
+      <nodes>
+        <classShapeMoniker Id="21869449-38ae-4fab-945d-17f76e3440f4" />
+        <classShapeMoniker Id="4feeebe8-0808-4812-9364-8cd6285c48e1" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

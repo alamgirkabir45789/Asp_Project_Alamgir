@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MedicoHospital_DBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MedicoHospital_DB.dbo.LabReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="LabReport">
+          <Key>
+            <PropertyRef Name="LabReportID" />
+            <PropertyRef Name="PatientName" />
+            <PropertyRef Name="Age" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="ContactNo" />
+            <PropertyRef Name="ExamName" />
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Name="LabReportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Age" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VisitingDate" Type="varchar" MaxLength="100" />
+          <Property Name="ExamName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Price" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="MedicoHospital_DBModel1StoreContainer">
+          <EntitySet Name="LabReport" EntityType="Self.LabReport" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LabReport].[LabReportID] AS [LabReportID], 
+    [LabReport].[PatientName] AS [PatientName], 
+    [LabReport].[Age] AS [Age], 
+    [LabReport].[Gender] AS [Gender], 
+    [LabReport].[Email] AS [Email], 
+    [LabReport].[ContactNo] AS [ContactNo], 
+    [LabReport].[VisitingDate] AS [VisitingDate], 
+    [LabReport].[ExamName] AS [ExamName], 
+    [LabReport].[Price] AS [Price]
+    FROM [dbo].[LabReport] AS [LabReport]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MedicoHospital_DBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="LabReport">
+          <Key>
+            <PropertyRef Name="LabReportID" />
+            <PropertyRef Name="PatientName" />
+            <PropertyRef Name="Age" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="ContactNo" />
+            <PropertyRef Name="ExamName" />
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Name="LabReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VisitingDate" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ExamName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="MedicoHospital_DBEntities6" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LabReports" EntityType="Self.LabReport" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MedicoHospital_DBModel1StoreContainer" CdmEntityContainer="MedicoHospital_DBEntities6">
+          <EntitySetMapping Name="LabReports">
+            <EntityTypeMapping TypeName="MedicoHospital_DBModel1.LabReport">
+              <MappingFragment StoreEntitySet="LabReport">
+                <ScalarProperty Name="LabReportID" ColumnName="LabReportID" />
+                <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="VisitingDate" ColumnName="VisitingDate" />
+                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
